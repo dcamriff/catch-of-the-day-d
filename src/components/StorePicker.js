@@ -7,22 +7,31 @@ class StorePicker extends React.Component {
     //     super();
     //     this.this.goToStore = this.goToStore.bind(this);
     // }
-    goToStore(event) {
-        event.preventDefault();
-        console.log('You changed the URL');
-        // first grab text from the box
-        const storeId = this.storeInput.value;
-        console.log(`Going to ${storeId}`)
-        // second we're going to transition from / to /store/:storeId
-        this.context.router.transitionTo(`/store/${storeId}`);
+    myInput = React.createRef();
 
-    }
+    goToStore = event => {
+        // 1. Stop the form from submitting
+        event.preventDefault();
+        
+        // 2. first grab text from the input
+        const storeName = this.myInput.value.value;
+        
+        // 3. Change page to /store/whatever-they-entered
+        this.props.history.push(`/store/${storeName}`);
+    };
+
 
     render() {
         return (
-        <form className="store-selector" onSubmit={(e) => this.goToStore(e)}>
+        <form className="store-selector" onSubmit={this.goToStore}>
             <h2>Please Enter A Store</h2>
-            <input type="text" required placeholder="Store Name" defaultValue={getFunName()} ref={(input) => {this.storeInput = input}}/>
+            <input 
+                type="text" 
+                required 
+                placeholder="Store Name" 
+                defaultValue={getFunName()} 
+                ref={this.myInput}
+                />
             <button type="submit">Visit Store →</button>
         </form>
         )
