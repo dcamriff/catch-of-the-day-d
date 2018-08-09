@@ -22,4 +22,4 @@ const Root = () => {
     )
 }
 
-render (<App />, document.querySelector('#main'));
+render (<StorePicker />, document.querySelector('#main'));
